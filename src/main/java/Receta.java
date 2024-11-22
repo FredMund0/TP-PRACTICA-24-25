@@ -1,27 +1,44 @@
 public class Receta {
-
+    private String nombre;
+    private String[] Ingredientes;
+    private String[] Instrucciones;
+    private int maxIngredientes;
+    private int maxInstrucciones;
+    private int numIngredientes=0;//A lo mejor no hace falta crear esta variable
     public Receta(String nombre, int maxIngredientes, int maxInstrucciones) {
         // Inicialización de la receta
+        this.nombre= nombre;
+        this.maxIngredientes=maxIngredientes;
+        this.maxInstrucciones=maxInstrucciones;
+        String[] Ingredientes = new String[maxIngredientes];
+        String[] Instrucciones = new String[maxInstrucciones];
     }
 
     public String getNombre() {
         // Devuelve el nombre de la receta
-        return null; // @todo MODIFICAR PARA DEVOLVER EL NOMBRE DE LA RECETA
+        return nombre;
     }
 
     public String[] getIngredientes() {
         // Devuelve los ingredientes de la receta
-        return null; // @todo MODIFICAR PARA DEVOLVER LOS INGREDIENTES DE LA RECETA
+        return Ingredientes;
     }
 
     public String[] getInstrucciones() {
         // Devuelve las instrucciones de la receta
-        return null; // @todo MODIFICAR PARA DEVOLVER LAS INSTRUCCIONES DE LA RECETA
+        return Instrucciones;
     }
 
     public boolean agregarIngrediente(String ingrediente) {
         // Añade un ingrediente a la receta
-        return false; // @todo MODIFICAR PARA DEVOLVER SI SE HA AÑADIDO EL INGREDIENTE
+        if(numIngredientes>maxIngredientes)
+            return false;
+        else {
+            Ingredientes[numIngredientes] = ingrediente;
+            numIngredientes++;
+
+            return false; // @todo MODIFICAR PARA DEVOLVER SI SE HA AÑADIDO EL INGREDIENTE
+        }
     }
 
     public boolean agregarInstruccion(String instruccion) {
