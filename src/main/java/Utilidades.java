@@ -65,14 +65,68 @@ public class Utilidades {
     }
 
     public static int diaSemanaAPosicion(String dia) {
+        int posicion = -1;
+        do {
+            switch (dia) {
+                case "L":
+                    posicion = 0;
+                    break;
+                case "M":
+                    posicion = 1;
+                    break;
+                case "X":
+                    posicion = 2;
+                    break;
+                case "J":
+                    posicion = 3;
+                    break;
+                case "V":
+                    posicion = 4;
+                    break;
+                case "S":
+                    posicion = 5;
+                    break;
+                case "D":
+                    posicion = 6;
+                    break;
+
+            }
+        }while(posicion == -1);
         // Devuelve la posición de un día de la semana (L, M, X, J, V, S, D) dentro de la semana (0-6)
-        return 0; // @todo MODIFICAR PARA DEVOLVER LA POSICIÓN DEL DÍA DE LA SEMANA
+        return posicion; // @todo MODIFICAR PARA DEVOLVER LA POSICIÓN DEL DÍA DE LA SEMANA
     }
 
     public static String posicionADiaSemana(int pos) {
+        String dia = "a";
+        do {
+            switch (pos) {
+                case 0:
+                    dia = "Lunes";
+                    break;
+                case 1:
+                    dia = "Martes";
+                    break;
+                case 2:
+                    dia = "Miércoles";
+                    break;
+                case 3:
+                    dia = "Jueves";
+                    break;
+                case 4:
+                    dia = "Viernes";
+                    break;
+                case 5:
+                    dia = "Sábado";
+                    break;
+                case 6:
+                    dia = "Domingo";
+                    break;
+
+            }
+        }while(dia.equals("a"));
         // Devuelve el día de la semana (Lunes, Martes, Miércoles, Jueves, Viernes, Sábado, Domingo)
         // correspondiente a una posición dentro de la semana (0-6)
-        return null; // @todo MODIFICAR PARA DEVOLVER EL DÍA DE LA SEMANA
+        return dia; // @todo MODIFICAR PARA DEVOLVER EL DÍA DE LA SEMANA
     }
 
 
