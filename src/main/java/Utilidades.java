@@ -25,7 +25,7 @@ public class Utilidades {
                     System.out.println("No es un número");
                 }
             } while (num < minimo || num > maximo);
-        // Muestra un mensaje y lee un número por teclado (si no es un número vuelve a solicitar uno
+        // Muestra un mensaje y lee un número por teclado si no es un número vuelve a solicitar uno
         return num;
     }
 
