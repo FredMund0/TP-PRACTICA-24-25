@@ -1,3 +1,8 @@
+/**
+ * Función que se encarga en inicializar la recetas, devolver sus parametros, agregar ingredientes e
+ * instrucciones y imprimir la receta para su lectura.
+ *
+ */
 public class Receta {
     private String nombre;
     private String[] Ingredientes;
@@ -15,25 +20,34 @@ public class Receta {
         String[] Instrucciones = new String[maxInstrucciones];
     }
 
+    /**
+     * @return -Devuelve el nombre de la receta
+     */
     public String getNombre() {
         // Devuelve el nombre de la receta
         return nombre;
     }
 
+    /**
+     * @return -Devuelve el array String de los Ingredientes
+     */
     public String[] getIngredientes() {
         // Devuelve los ingredientes de la receta
         return Ingredientes;
     }
 
+    /**
+     * @return -Devuelve el array String de las instrucciones.
+     */
     public String[] getInstrucciones() {
         // Devuelve las instrucciones de la receta
         return Instrucciones;
     }
 
     /**
-     * Funcion que añade un Ingrediente a la receta y un boolean 0/1 depende si se ha llegado al limite de ingredientes.
+     * Funcion que añade un Ingrediente a la receta y un boolean 0/1 que depende si se ha llegado al limite de ingredientes.
      * @param ingrediente - String del nombre del ingrediente que se quiere añadir a la receta.
-     * @return
+     * @return -Devuelve un valor boolean 0/1 que depende si se ha llegado al limite de ingredientes y no se ha podido crear uno nuevo.(0=exito, 1=limite pasado)
      */
     public boolean agregarIngrediente(String ingrediente) {
         // Añade un ingrediente a la receta
@@ -47,6 +61,11 @@ public class Receta {
         }
     }
 
+    /**
+     * Función que añade una Instruccion al array Instrucciones[] y devuelve un boolean que depende si se ha llegado al limite de instrucciones.
+     * @param instruccion -String de la linea que contiene la instrucción.
+     * @return -Devuelve un boolean(0/1) que es igual a 0 si se añade la instrucción correctamente y 1 si se ha llegado al limite de instrucciones.
+     */
     public boolean agregarInstruccion(String instruccion) {
         if(instruccionesCompletas())
             return false;
@@ -58,6 +77,10 @@ public class Receta {
         }
     }
 
+    /**
+     * Función que comprueba si se ha llegado al limite de ingredientes y devuelve un boolean
+     * @return-Devuelve un boolean 0 si no se ha llegado y un 1 si ya se ha llegado al limite.
+     */
     public boolean ingredientesCompletos() {
         // Comprueba si la receta tiene el máximo de ingredientes
         if (numIngredientes>(maxIngredientes-1))
@@ -66,6 +89,10 @@ public class Receta {
             return false;
     }
 
+    /**
+     * Función que comprueba si se ha llegado al limite de instrucciones y devuelve un boolean
+     * @return -Devuleve el boolean 0 si no se ha llegado y un 1 si ya se ha llegado al limite.
+     */
     public boolean instruccionesCompletas() {
         // Comprueba si la receta tiene el máximo de instrucciones
         if(numInstrucciones>(maxInstrucciones-1))
@@ -74,46 +101,68 @@ public class Receta {
         return false; // @todo MODIFICAR PARA DEVOLVER SI ESTÁN COMPLETAS LAS INSTRUCCIONES
     }
 
+    /**
+     * @return -Devuelve el numero(int) de ingredientes
+     */
     public int numIngredientes() {
         return numIngredientes;
     }
 
+    /**
+     * @return -Devuelve el numero(int) de instrucciones.
+     */
     public int numInstrucciones() {
        return numInstrucciones;
     }
 
+    /**
+     * Función que devuelve un string de toda la receta escrita para su lectura.
+     * @return-Devuelve el String de toda la receta escrita para su lectura.
+     */
     @Override
     public String toString() {
         // Devuelve una representación en forma de cadena de la receta
-        System.out.println("Receta: "+nombre);
-        System.out.println("Ingredientes:");
+        String receta="";
+       receta+="Receta: "+nombre+"\n";
+        receta+="Ingredientes:\n";
         for(int i=0;i<=numIngredientes;i++) {
-            System.out.println(Ingredientes[i]);
+            receta+="- "+Ingredientes[i]+"\n";
         }
-        System.out.println("Instrucciones:");
+       receta+="Instrucciones:\n";
         for(int i=0;i<=numInstrucciones;i++){
-            System.out.println((i+1)+". "+Instrucciones[i]);
+            receta+=(i+1)+". "+Instrucciones[i]+"\n";
         }
-        return null; // @todo MODIFICAR PARA DEVOLVER LA CADENA CORRECTA
+        return receta;
     }
 
+    /**
+     * Función que devuelve un String con la receta escrita de forma simplificada para poder guardar y cargar archivos.
+     * @return -Devuelve un String con la receta escrita de forma simplificada para poder guardar y cargar archivos.
+     */
     public String toRawString() {
-        System.out.println(nombre);
-        System.out.println("INGREDIENTES");
+        String rawReceta="";
+        rawReceta+=nombre+"\n";
+        rawReceta+="INGREDIENTES\n";
         for(int i=0;i<=numIngredientes;i++) {
-            System.out.println(Ingredientes[i]);
+            rawReceta+=Ingredientes[i]+"\n";
         }
-        System.out.println("INSTRUCCIONES");
+       rawReceta+="INSTRUCCIONES\n";
         for(int i=0;i<=numInstrucciones;i++){
-            System.out.println(Instrucciones[i]);
+            rawReceta+=Instrucciones[i];
         }
-        return null; // @todo MODIFICAR PARA DEVOLVER LA CADENA CORRECTA
+        return rawReceta; // @todo MODIFICAR PARA DEVOLVER LA CADENA CORRECTA
     }
 
+    /**
+     * @return -Devuelve el limite de ingredientes de la receta
+     */
     public int getMaxIngredientes() {
        return maxIngredientes;
     }
 
+    /**
+     * @return -Devuelve el limite de instrucciones de la receta
+     */
     public int getMaxInstrucciones() {
         return maxInstrucciones;
     }
