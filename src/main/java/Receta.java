@@ -24,7 +24,6 @@ public class Receta {
      * @return -Devuelve el nombre de la receta
      */
     public String getNombre() {
-        // Devuelve el nombre de la receta
         return nombre;
     }
 
@@ -32,7 +31,6 @@ public class Receta {
      * @return -Devuelve el array String de los Ingredientes
      */
     public String[] getIngredientes() {
-        // Devuelve los ingredientes de la receta
         return Ingredientes;
     }
 
@@ -40,7 +38,6 @@ public class Receta {
      * @return -Devuelve el array String de las instrucciones.
      */
     public String[] getInstrucciones() {
-        // Devuelve las instrucciones de la receta
         return Instrucciones;
     }
 
@@ -50,14 +47,12 @@ public class Receta {
      * @return -Devuelve un valor boolean 0/1 que depende si se ha llegado al limite de ingredientes y no se ha podido crear uno nuevo.(0=exito, 1=limite pasado)
      */
     public boolean agregarIngrediente(String ingrediente) {
-        // Añade un ingrediente a la receta
         if(ingredientesCompletos())
             return false;
         else {
             Ingredientes[numIngredientes] = ingrediente;
             numIngredientes++;
-
-            return false; // @todo MODIFICAR PARA DEVOLVER SI SE HA AÑADIDO EL INGREDIENTE
+            return false;
         }
     }
 
@@ -82,7 +77,6 @@ public class Receta {
      * @return-Devuelve un boolean 0 si no se ha llegado y un 1 si ya se ha llegado al limite.
      */
     public boolean ingredientesCompletos() {
-        // Comprueba si la receta tiene el máximo de ingredientes
         if (numIngredientes>(maxIngredientes-1))
         return true; // @todo MODIFICAR PARA DEVOLVER SI ESTÁN COMPLETOS LOS INGREDIENTES
         else
@@ -94,11 +88,10 @@ public class Receta {
      * @return -Devuleve el boolean 0 si no se ha llegado y un 1 si ya se ha llegado al limite.
      */
     public boolean instruccionesCompletas() {
-        // Comprueba si la receta tiene el máximo de instrucciones
         if(numInstrucciones>(maxInstrucciones-1))
             return true;
         else
-        return false; // @todo MODIFICAR PARA DEVOLVER SI ESTÁN COMPLETAS LAS INSTRUCCIONES
+            return false;
     }
 
     /**
@@ -121,7 +114,6 @@ public class Receta {
      */
     @Override
     public String toString() {
-        // Devuelve una representación en forma de cadena de la receta
         String receta="";
        receta+="Receta: "+nombre+"\n";
         receta+="Ingredientes:\n";
@@ -150,7 +142,7 @@ public class Receta {
         for(int i=0;i<=numInstrucciones;i++){
             rawReceta+=Instrucciones[i];
         }
-        return rawReceta; // @todo MODIFICAR PARA DEVOLVER LA CADENA CORRECTA
+        return rawReceta;
     }
 
     /**
