@@ -16,8 +16,8 @@ public class Receta {
         this.nombre= nombre;
         this.maxIngredientes=maxIngredientes;
         this.maxInstrucciones=maxInstrucciones;
-        String[] Ingredientes = new String[maxIngredientes];
-        String[] Instrucciones = new String[maxInstrucciones];
+       Ingredientes = new String[maxIngredientes];
+       Instrucciones = new String[maxInstrucciones];
     }
 
     /**
@@ -44,7 +44,7 @@ public class Receta {
     /**
      * Funcion que añade un Ingrediente a la receta y un boolean 0/1 que depende si se ha llegado al limite de ingredientes.
      * @param ingrediente - String del nombre del ingrediente que se quiere añadir a la receta.
-     * @return -Devuelve un valor boolean 0/1 que depende si se ha llegado al limite de ingredientes y no se ha podido crear uno nuevo.(0=exito, 1=limite pasado)
+     * @return -Devuelve un valor boolean que depende si se ha llegado al limite de ingredientes y no se ha podido crear uno nuevo.(true=exito, false=limite pasado)
      */
     public boolean agregarIngrediente(String ingrediente) {
         if(ingredientesCompletos())
@@ -52,14 +52,14 @@ public class Receta {
         else {
             Ingredientes[numIngredientes] = ingrediente;
             numIngredientes++;
-            return false;
+            return true;
         }
     }
 
     /**
      * Función que añade una Instruccion al array Instrucciones[] y devuelve un boolean que depende si se ha llegado al limite de instrucciones.
      * @param instruccion -String de la linea que contiene la instrucción.
-     * @return -Devuelve un boolean(0/1) que es igual a 0 si se añade la instrucción correctamente y 1 si se ha llegado al limite de instrucciones.
+     * @return -Devuelve un boolean que es igual a true si se añade la instrucción correctamente y false si se ha llegado al limite de instrucciones.
      */
     public boolean agregarInstruccion(String instruccion) {
         if(instruccionesCompletas())
@@ -67,8 +67,7 @@ public class Receta {
         else {
             Instrucciones[numInstrucciones] = instruccion;
             numInstrucciones++;
-
-            return false; // @todo MODIFICAR PARA DEVOLVER SI SE HA AÑADIDO LA INSTRUCCIÓN
+            return true; // @todo MODIFICAR PARA DEVOLVER SI SE HA AÑADIDO LA INSTRUCCIÓN
         }
     }
 
@@ -77,7 +76,7 @@ public class Receta {
      * @return-Devuelve un boolean 0 si no se ha llegado y un 1 si ya se ha llegado al limite.
      */
     public boolean ingredientesCompletos() {
-        if (numIngredientes>(maxIngredientes-1))
+        if (numIngredientes>=maxIngredientes)
         return true; // @todo MODIFICAR PARA DEVOLVER SI ESTÁN COMPLETOS LOS INGREDIENTES
         else
             return false;
@@ -88,7 +87,7 @@ public class Receta {
      * @return -Devuleve el boolean 0 si no se ha llegado y un 1 si ya se ha llegado al limite.
      */
     public boolean instruccionesCompletas() {
-        if(numInstrucciones>(maxInstrucciones-1))
+        if(numInstrucciones>=maxInstrucciones)
             return true;
         else
             return false;
@@ -118,11 +117,13 @@ public class Receta {
        receta+="Receta: "+nombre+"\n";
         receta+="Ingredientes:\n";
         for(int i=0;i<=numIngredientes;i++) {
-            receta+="- "+Ingredientes[i]+"\n";
+            if(Ingredientes[i]!=null){
+            receta+="- "+Ingredientes[i]+"\n";}
         }
        receta+="Instrucciones:\n";
         for(int i=0;i<=numInstrucciones;i++){
-            receta+=(i+1)+". "+Instrucciones[i]+"\n";
+            if(Instrucciones[i]!=null){
+            receta+=(i+1)+". "+Instrucciones[i]+"\n";}
         }
         return receta;
     }
@@ -134,14 +135,16 @@ public class Receta {
     public String toRawString() {
         String rawReceta="";
         rawReceta+=nombre+"\n";
-        rawReceta+="INGREDIENTES\n";
         for(int i=0;i<=numIngredientes;i++) {
-            rawReceta+=Ingredientes[i]+"\n";
+            if(Ingredientes[i]!=null){
+            rawReceta+=Ingredientes[i]+"\n";}
         }
        rawReceta+="INSTRUCCIONES\n";
         for(int i=0;i<=numInstrucciones;i++){
-            rawReceta+=Instrucciones[i];
+            if(Instrucciones[i]!=null){
+            rawReceta+=Instrucciones[i]+"\n";}
         }
+        rawReceta+="-----\n";
         return rawReceta;
     }
 
