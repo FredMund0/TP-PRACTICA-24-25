@@ -156,7 +156,7 @@ public class Utilidades {
                     dia = "Domingo";
                     break;
                 default:
-                    System.out.println("No hay ningún día asociado a ese número");
+                    dia = "Desconocido";
                     break;
             }
 
