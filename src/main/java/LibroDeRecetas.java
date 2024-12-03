@@ -1,7 +1,4 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 
 public class LibroDeRecetas {
     private Receta recetas[];
@@ -9,7 +6,6 @@ public class LibroDeRecetas {
     public LibroDeRecetas(int maxRecetasEnLibro) {
         // Inicialización del libro de recetas
        recetas= new Receta[maxRecetasEnLibro];
-
     }
 
     public boolean agregarReceta(Receta receta) {
@@ -26,12 +22,13 @@ public class LibroDeRecetas {
     }
 
     public Receta[] buscarRecetaPorNombre(String texto) {
+        //Deberia haberlo hecho con contains
        Receta[]Encontradas=new Receta[recetas.length];
        int recetasEncontradas=0;
-        for(int i=0;i<=recetas.length;i++){
+        for(int i=0;i<recetas.length;i++){
             Receta receta=recetas[i];
-            for(int j=0;j<=(receta.getNombre()).length()-texto.length();j++) {
-                if (((receta.getNombre()).toUpperCase()).substring(j, j + texto.length()) == texto.toUpperCase()){
+            for(int j=0;j<=((receta.getNombre()).length()-texto.length());j++) {
+                if (((receta.getNombre()).toUpperCase()).substring(j, (j + texto.length())).equals(texto.toUpperCase())){
                     Encontradas[recetasEncontradas]=receta;
                     recetasEncontradas++;
                 }
@@ -42,23 +39,55 @@ public class LibroDeRecetas {
 
     public void guardarRecetasEnArchivo(String nombreArchivo) throws IOException {
         // Guarda las recetas en un archivo de texto
-        File guardado = new File("C://", nombreArchivo+".txt");
+        File guardado = new File(nombreArchivo+".txt");
         try{
             PrintWriter escritor= new PrintWriter(new FileWriter(guardado));
             for(int i=0;i<recetas.length;i++) {
                 if (recetas[i] != null) {
                     Receta receta = recetas[i];
-                    System.out.println(receta.toRawString());
-                }
+                    escritor.print(receta.toRawString());}
             }
+            escritor.close();
+            System.out.println("Archivo guardado exitosamente");
         }catch(IOException e){
-            System.out.println("Ocurrió un error al escribir en el archivo.");
+            System.out.println("Ocurrió un error al escribir en el archivo."+ e.getMessage());
+            e.printStackTrace();
+
         }
     }
 
     public void cargarRecetasDeArchivo(String nombreArchivo, int maxIngredientes, int maxInstrucciones) throws IOException {
-        // Carga las recetas desde un archivo de texto
+        // Solucionar errores al meter un archivo mal hecho
+        try {
+            BufferedReader lector = new BufferedReader(new FileReader(nombreArchivo + ".txt"));
+            String linea;
+            do {
+                linea = lector.readLine();
+                if (linea.isEmpty()){}
+            else{
+                    Receta receta = new Receta(linea, maxIngredientes, maxInstrucciones);
+                    for (int i = 0; i < maxIngredientes; i++) {
+                        linea = lector.readLine();
+                        if (linea.equals("INSTRUCCIONES")) {
+                            receta.agregarIngrediente(linea);
+                        } else break;
+                    }
+                    for (int i = 0; i < maxInstrucciones; i++) {
+                        linea = lector.readLine();
+                        if (!linea.equals("-----")) {
+                            receta.agregarInstruccion(linea);
+                        } else break;
+                    }
+                    agregarReceta(receta);
+                }
+            }while(!linea.isEmpty());
+        } catch (FileNotFoundException ex) {
+            System.out.println("No se ha encontrado el archivo llamado: " + nombreArchivo + ".txt");
+        }catch (IOException ex) {
+            System.out.println(ex.getMessage());}
     }
+
+
 
     public boolean recetasCompletas() {
         if(numRecetas>=recetas.length)
