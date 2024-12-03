@@ -1,13 +1,15 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class PlanificadorSemanal {
-    private Receta[] planificador;
+    private final Receta[] planificador;
     private Receta receta;
     private int dia;
 
     public PlanificadorSemanal() {
-        this.planificador = new Receta[6];
-        Receta receta = planificador[dia];
+        this.planificador = new Receta[7];
+        this.receta = planificador[dia];
     }
 
     public void agregarComida(int dia, Receta receta) {
@@ -20,19 +22,39 @@ public class PlanificadorSemanal {
 
     @Override
     public String toString() {
-        System.out.println("------------------------------------------------------------------------------------------");
-        System.out.println("\tLunes\t\t\t\tMartes\t\t\t\tMiércoles\t\t\t\tJueves\t\t\t\tViernes\t\t\t\tSábado\t\t\t\tDomingo");
-        System.out.println("------------------------------------------------------------------------------------------");
+        String plan = "";
+        plan += "---------------------------------------------------------------------------------------------------------------------------------------------------\n";
+        plan += "\tLunes\t\t\t\tMartes\t\t\t\tMiércoles\t\t\t\tJueves\t\t\t\tViernes\t\t\t\tSábado\t\t\t\tDomingo\n";
+        plan += "-------------------------------------------------------------------------------------------------------------------------------------------\n";
         for (int i = 0; i <=6; i++) {
             receta = planificador[i];
-            System.out.printf(" \t%-17s",receta.getNombre());
+            if (planificador[i] == null){
+                plan += "";
+            }   else {
+                String nombreReceta = receta.getNombre();
+                plan += nombreReceta;
+            }
         }
-        System.out.println("------------------------------------------------------------------------------------------");
+        plan += "\n-------------------------------------------------------------------------------------------------------------------------------------------";
         // Devuelve una representación en forma de cadena del planificador semanal
-        return null; // @todo MODIFICAR PARA DEVOLVER LA CADENA CORRECTA
+        return plan; // @todo MODIFICAR PARA DEVOLVER LA CADENA CORRECTA
     }
 
     public void guardarPlanEnArchivo(String nombreArchivo) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo))){
+        String[] diasSemana = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"};
+        for (int i = 0; i <= planificador.length; i++){
+            Receta receta = planificador[i];
+            String recetaNombre;
+            if (receta != null) {
+                recetaNombre = receta.getNombre();
+            }   else {
+                recetaNombre = "---";
+            }
+            writer.write((i) + " " + diasSemana[i] + ": " + recetaNombre);
+            writer.newLine();
+        }
+        }
         // Guarda el planificador semanal en un archivo de texto
     }
 }
