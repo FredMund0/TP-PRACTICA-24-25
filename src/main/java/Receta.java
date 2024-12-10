@@ -47,8 +47,9 @@ public class Receta {
      * @return -Devuelve un valor boolean que depende si se ha llegado al limite de ingredientes y no se ha podido crear uno nuevo.(true=exito, false=limite pasado)
      */
     public boolean agregarIngrediente(String ingrediente) {
-        if(ingredientesCompletos())
-            return false;
+        if(ingredientesCompletos()){
+            System.out.println("No se pueden añadir más ingredientes.");
+            return false;}
         else {
             Ingredientes[numIngredientes] = ingrediente;
             numIngredientes++;
@@ -62,8 +63,9 @@ public class Receta {
      * @return -Devuelve un boolean que es igual a true si se añade la instrucción correctamente y false si se ha llegado al limite de instrucciones.
      */
     public boolean agregarInstruccion(String instruccion) {
-        if(instruccionesCompletas())
-            return false;
+        if(instruccionesCompletas()){
+            System.out.println("No se pueden añadir más instrucciones.");
+            return false;}
         else {
             Instrucciones[numInstrucciones] = instruccion;
             numInstrucciones++;

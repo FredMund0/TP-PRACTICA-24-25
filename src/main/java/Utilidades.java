@@ -34,13 +34,14 @@ public class Utilidades {
         int num = -1;
             do {
                 try{
-                    System.out.println(mensaje);
+                    System.out.print(mensaje);
                     num = teclado.nextInt();
                     if (num > maximo || num < minimo) {
                         System.out.println("El número debe ser menor que " + maximo + " y mayor que " + minimo);
                     }
                 } catch (InputMismatchException e) {
                     System.out.println("No es un número");
+                    teclado.nextLine();
                 }
             } while (num < minimo || num > maximo);
         // Muestra un mensaje y lee un número por teclado si no es un número vuelve a solicitar uno

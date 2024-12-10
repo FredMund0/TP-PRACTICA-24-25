@@ -1,5 +1,10 @@
 import java.io.*;
 
+/**
+ * La clase que se encarga de guardar recetas, buscar recetas por nombre, guardar toda la informaición de las recetas
+ * en un archivo , cargar las recetas exscritas en otro archivo y eliminar una receta.
+ * Además contiene funciones para devolver
+ */
 public class LibroDeRecetas {
     private Receta recetas[];
     private int numRecetas=0;
@@ -8,28 +13,43 @@ public class LibroDeRecetas {
        recetas= new Receta[maxRecetasEnLibro];
     }
 
+    /**
+     * Función que añade una receta al libro de recetas.
+     * @param receta- Objeto de la clase receta, es decir la receta, que se quiere añadir al libro de recetas en el
+     *              array llamado recetas[]
+     * @return - La función devuelve un valor boolean, que es verdadero si de ha podido añadir la receta con éxito o
+     *          falso si se llegó al limite de recetas.
+     */
     public boolean agregarReceta(Receta receta) {
         // Añade una receta al libro de recetas
         if(!recetasCompletas()){
-            for(int i=0;i<recetas.length;i++){
-                if(recetas[i]==null)
-                    recetas[i]=receta;}
+            int i=0;
+            while (recetas[i]!=null){
+                i++;}
+            recetas[i]=receta;
             numRecetas++;
             return true;
         }
-        else
-            return false;
+        else{
+            System.out.println("No se pueden añadir más instrucciones.");
+            return false;}
     }
 
+    /**
+     * Función que a partir de un String busca recetas cuyos nombres lo contengan, interpreta las mayúsculas y
+     * minúsculas como iguales. Devuelve un array con as recetas encontradas.
+     * @param texto- Es el String del cual se busca si algún nombre de las rectas lo contienen como un substring.
+     * @return - La función devuelve un array de la clase Receta[] con las recetas que contengan el param. texto
+     *           como substring.
+     */
     public Receta[] buscarRecetaPorNombre(String texto) {
-        //Deberia haberlo hecho con contains
        Receta[]Encontradas=new Receta[recetas.length];
        int recetasEncontradas=0;
         for(int i=0;i<recetas.length;i++){
-            Receta receta=recetas[i];
-            for(int j=0;j<=((receta.getNombre()).length()-texto.length());j++) {
-                if (((receta.getNombre()).toUpperCase()).substring(j, (j + texto.length())).equals(texto.toUpperCase())){
-                    Encontradas[recetasEncontradas]=receta;
+            if(recetas[i]!=null) {
+                Receta receta = recetas[i];
+                if(((receta.getNombre()).toUpperCase()).contains(texto.toUpperCase())){
+                    Encontradas[recetasEncontradas] = receta;
                     recetasEncontradas++;
                 }
             }
@@ -37,6 +57,12 @@ public class LibroDeRecetas {
         return Encontradas; // @todo MODIFICAR PARA DEVOLVER LAS RECETAS ENCONTRADAS
     }
 
+    /**
+     * Función que crea y escribe un archivo que contenga toda la información de las recetas de manera que se puedan
+     * después cargar con la función cargarRecetasDeArchivo.
+     * @param nombreArchivo- String que contiene el nombre del archivo que va ha ser creado, al que se le añade .txt.
+     * @throws IOException
+     */
     public void guardarRecetasEnArchivo(String nombreArchivo) throws IOException {
         // Guarda las recetas en un archivo de texto
         File guardado = new File(nombreArchivo+".txt");
@@ -56,6 +82,16 @@ public class LibroDeRecetas {
         }
     }
 
+    /**
+     * Función que se encarga en leer un archivo de texto que contiene la información de las rectas e implementa esta
+     * información en sus respectivas clases.
+     * @param nombreArchivo- String que contiene el nombre del archivo que se busca para leer(se le añade .txt)
+     * @param maxIngredientes- Constante(int) que determina la contidad máxima de ingredientes permitidos que está
+     *                       determinado al ejecutar el programa.
+     * @param maxInstrucciones-Constante(int) que determina la contidad máxima de instrucciones permitidas que está
+     *                       determinado al ejecutar el programa.
+     * @throws IOException
+     */
     public void cargarRecetasDeArchivo(String nombreArchivo, int maxIngredientes, int maxInstrucciones) throws IOException {
         // Solucionar errores al meter un archivo mal hecho
         try {
@@ -88,17 +124,28 @@ public class LibroDeRecetas {
     }
 
 
-
+    /**
+     * Función que devuelve un boolean dependiendo de si se ha llegado al máximo de recetas.
+     * @return-Devuelve un valor boolean true, si ha alcanzado el limite de recetas y uno false si no lo ha hecho.
+     */
     public boolean recetasCompletas() {
         if(numRecetas>=recetas.length)
         return true; // @todo MODIFICAR PARA DEVOLVER SI ESTÁ COMPLETO
         else return false;
     }
 
+    /**
+     * Función que devuelve el numero de recetas actuales en el libro de recetas.
+     * @return- Devuelve un valor int con el numero de recetas actuales.
+     */
     public int numRecetas() {
         return numRecetas;
     }
 
+    /**
+     * Función que elimina una receta seleccionada, del array recetas[], sustituyendolo por un null.
+     * @param seleccionada- Objeto de la clase Receta que se quiere va a eliminar.
+     */
     public void eliminarReceta(Receta seleccionada) {
         // Elimina una receta del libro de recetas
         for(int i=0;i<recetas.length;i++){
