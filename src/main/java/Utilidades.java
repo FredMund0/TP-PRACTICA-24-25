@@ -9,7 +9,7 @@ public class Utilidades {
 
 
     /**
-     * Función cuya función es pedir una cadena mediane un mensaje pidiendola e introduciendola por teclado
+     * Función cuyo objetivo es pedir una cadena mediane un mensaje pidiendola e introduciendola por teclado
      * @param teclado Declaración del Scanner teclado para poder escribir mediante teclado una cadena
      * @param s Variable de clase string que sirve como mensaje introductorio para leer una nueva línea
      * @return Devuelve la cadena de texto que ha sido pedida por el mensaje escrito
