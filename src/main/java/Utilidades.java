@@ -15,7 +15,7 @@ public class Utilidades {
      * @return Devuelve la cadena de texto que ha sido pedida por el mensaje escrito
      */
     public static String leerCadena(Scanner teclado, String s) {
-        System.out.println(s);
+        System.out.print(s);
         String cadena = teclado.nextLine();
         // Muestra un mensaje y lee una cadena por teclado
         return cadena;

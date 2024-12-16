@@ -54,20 +54,20 @@ public class LibroDeRecetas {
                 }
             }
         }
-        return Encontradas; // @todo MODIFICAR PARA DEVOLVER LAS RECETAS ENCONTRADAS
+            return Encontradas;
     }
 
     /**
      * Función que crea y escribe un archivo que contenga toda la información de las recetas de manera que se puedan
      * después cargar con la función cargarRecetasDeArchivo.
-     * @param nombreArchivo- String que contiene el nombre del archivo que va ha ser creado, al que se le añade .txt.
-     * @throws IOException
+     * @param nombreArchivo- String que contiene el nombre del archivo que va ha ser creado(incluye .txt)
+     * @throws IOException La función puede lanzar una excepcción tipo IOException.
      */
     public void guardarRecetasEnArchivo(String nombreArchivo) throws IOException {
         // Guarda las recetas en un archivo de texto
-        File guardado = new File(nombreArchivo+".txt");
+       // File guardado = new File(nombreArchivo+".txt");
         try{
-            PrintWriter escritor= new PrintWriter(new FileWriter(guardado));
+            PrintWriter escritor= new PrintWriter(new FileWriter(nombreArchivo));
             for(int i=0;i<recetas.length;i++) {
                 if (recetas[i] != null) {
                     Receta receta = recetas[i];
@@ -77,37 +77,35 @@ public class LibroDeRecetas {
             System.out.println("Archivo guardado exitosamente");
         }catch(IOException e){
             System.out.println("Ocurrió un error al escribir en el archivo."+ e.getMessage());
-            e.printStackTrace();
-
         }
     }
 
     /**
      * Función que se encarga en leer un archivo de texto que contiene la información de las rectas e implementa esta
      * información en sus respectivas clases.
-     * @param nombreArchivo- String que contiene el nombre del archivo que se busca para leer(se le añade .txt)
+     * @param nombreArchivo- String que contiene el nombre del archivo que se busca para leer(incluyendo .txt)
      * @param maxIngredientes- Constante(int) que determina la contidad máxima de ingredientes permitidos que está
      *                       determinado al ejecutar el programa.
      * @param maxInstrucciones-Constante(int) que determina la contidad máxima de instrucciones permitidas que está
      *                       determinado al ejecutar el programa.
-     * @throws IOException
+     * @throws IOException La función puede lanzar una excepcción tipo IOException.
      */
     public void cargarRecetasDeArchivo(String nombreArchivo, int maxIngredientes, int maxInstrucciones) throws IOException {
         // Solucionar errores al meter un archivo mal hecho
         try {
-            BufferedReader lector = new BufferedReader(new FileReader(nombreArchivo + ".txt"));
+            BufferedReader lector = new BufferedReader(new FileReader(nombreArchivo));
             String linea;
             do {
                 linea = lector.readLine();
-                if (linea.isEmpty()){}
-            else{
+                if (linea==null){}
+                else{
                     Receta receta = new Receta(linea, maxIngredientes, maxInstrucciones);
-                    for (int i = 0; i < maxIngredientes; i++) {
+                    do{
                         linea = lector.readLine();
-                        if (linea.equals("INSTRUCCIONES")) {
+                        if (!linea.equals("INSTRUCCIONES"))
                             receta.agregarIngrediente(linea);
-                        } else break;
-                    }
+                        else{linea=null;}
+                    }while(linea!=null);
                     for (int i = 0; i < maxInstrucciones; i++) {
                         linea = lector.readLine();
                         if (!linea.equals("-----")) {
@@ -116,9 +114,9 @@ public class LibroDeRecetas {
                     }
                     agregarReceta(receta);
                 }
-            }while(!linea.isEmpty());
+            }while(linea!=null);
         } catch (FileNotFoundException ex) {
-            System.out.println("No se ha encontrado el archivo llamado: " + nombreArchivo + ".txt");
+            System.out.println("No se ha encontrado el archivo llamado: " + nombreArchivo);
         }catch (IOException ex) {
             System.out.println(ex.getMessage());}
     }
@@ -141,7 +139,6 @@ public class LibroDeRecetas {
     public int numRecetas() {
         return numRecetas;
     }
-
     /**
      * Función que elimina una receta seleccionada, del array recetas[], sustituyendolo por un null.
      * @param seleccionada- Objeto de la clase Receta que se quiere va a eliminar.
@@ -150,10 +147,11 @@ public class LibroDeRecetas {
         // Elimina una receta del libro de recetas
         for(int i=0;i<recetas.length;i++){
             Receta receta=recetas[i];
-            if(receta==seleccionada)
-                recetas[i]=null;
+            if(receta==seleccionada) {
+                recetas[i] = null;
+                numRecetas--;
+            }
         }
-
     }
 }
 

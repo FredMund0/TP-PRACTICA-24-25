@@ -12,12 +12,17 @@ public class InterfazUsuario {
         libroDeRecetas=new LibroDeRecetas(maxRecetasEnLibro);
         this.maxIngredientes=maxIngredientes;
         this.maxInstrucciones=maxInstrucciones;
-        iniciar();
+        planificador=new PlanificadorSemanal();
     }
 
     public InterfazUsuario(int maxIngredientes, int maxInstrucciones, int maxRecetasEnLibro, String archivoRecetas) {
         this(maxIngredientes, maxInstrucciones, maxRecetasEnLibro);
-
+        try {
+            libroDeRecetas.cargarRecetasDeArchivo(archivoRecetas, maxIngredientes, maxInstrucciones);
+        } catch (IOException e) {
+            System.out.println("Error al cargar las recetas predefinidas");
+        }
+        iniciar();
         // Cargar las recetas predefinidas al iniciar la aplicación
     }
 
@@ -48,11 +53,17 @@ public class InterfazUsuario {
                 case 2:
                     consultarReceta(scanner);
                     break;
+                case 3:
+                    planificarComidas(scanner);
+                    break;
                 case 4:
                     guardarRecetas(scanner);
                     break;
                 case 5:
                     cargarRecetas(scanner);
+                    break;
+                case 6:
+                    guardarPlanSemanal(scanner);
                     break;
                 default:
                     break;
@@ -69,15 +80,11 @@ public class InterfazUsuario {
         //probar hacerlo sin break
         do{
             ingredienteinstruccion=Utilidades.leerCadena(scanner,"");
-            if(ingredienteinstruccion.equals("fin"))
-                break;
-        }while(receta.agregarIngrediente(ingredienteinstruccion));
+        }while(!ingredienteinstruccion.equals("fin")&&receta.agregarIngrediente(ingredienteinstruccion));
         System.out.println("Introduce las instrucciones (una línea por instrucción, escribe 'fin' para terminar): ");
         do{
             ingredienteinstruccion=Utilidades.leerCadena(scanner,"");
-            if(ingredienteinstruccion.equals("fin"))
-                break;
-        }while(receta.agregarInstruccion(ingredienteinstruccion));
+        }while(!ingredienteinstruccion.equals("fin")||receta.agregarInstruccion(ingredienteinstruccion));
         if(libroDeRecetas.agregarReceta(receta))
             System.out.println("¡Receta agregada exitosamente!");
     }
@@ -92,14 +99,19 @@ public class InterfazUsuario {
 
     private Receta buscarRecetaPorNombre(Scanner scanner) {
         // Solicita al usuario un texto para buscar y seleccionar una receta por su nombre
-        scanner.nextLine();
-        String cadena=Utilidades.leerCadena(scanner, "Introduce el texto de la receta a buscar (-FIN- para volver):");
-        if(cadena.toUpperCase()!="FIN") {
-            Receta[] recetasEncontradas = libroDeRecetas.buscarRecetaPorNombre(cadena);
-            Receta receta = seleccionarReceta(scanner, recetasEncontradas);
-            return receta;
-        }
-        else return null;
+            if(scanner.hasNextLine())scanner.nextLine();
+            String cadena = Utilidades.leerCadena(scanner, "Introduce el texto de la receta a buscar (-FIN- para volver):");
+            if (cadena.toUpperCase() != "FIN") {
+                Receta [] recetasEncontradas = libroDeRecetas.buscarRecetaPorNombre(cadena);
+                if (recetasEncontradas == null) {
+                    buscarRecetaPorNombre(scanner);
+                }
+                else{
+                    Receta receta = seleccionarReceta(scanner, recetasEncontradas);
+                    return receta;
+                }
+            }
+        return null;
     }
 
     private void editarReceta(Scanner scanner, Receta seleccionada) {
@@ -143,17 +155,24 @@ public class InterfazUsuario {
 
     private void planificarComidas(Scanner scanner) {
         // Inicia el proceso de planificación de comidas
+        System.out.println("Planificación de comidas para la semana:");
+        System.out.println(planificador.toString());
+        String dia=Utilidades.leerCadena(scanner,"Introduce el día de la semana (L, M, X, J, V, S, D): ");
+        int intdia=Utilidades.diaSemanaAPosicion(dia);
+        Receta receta=buscarRecetaPorNombre(scanner);
+        planificador.agregarComida(intdia,receta);
+        System.out.println("Receta planificada para "+Utilidades.posicionADiaSemana(intdia));
     }
 
     private void guardarRecetas(Scanner scanner) {
         // Solicita al usuario un nombre de archivo y guarda las recetas en ese archivo
-        scanner.nextLine();
-       String cadena=Utilidades.leerCadena(scanner, "Introduce el nombre del archivo donde guardar las recetas: ");
+       scanner.nextLine();
+       String nombreArchivo=Utilidades.leerCadena(scanner, "Introduce el nombre del archivo donde guardar las recetas: ");
        try {
-           libroDeRecetas.guardarRecetasEnArchivo(cadena);
+           libroDeRecetas.guardarRecetasEnArchivo(nombreArchivo);
+           System.out.println("Recetas guardadas en "+nombreArchivo);
        }catch (IOException e) {
            System.out.println("Error al guardar el archivo.");
-           e.printStackTrace();
        }
     }
 
@@ -162,14 +181,22 @@ public class InterfazUsuario {
         String nombreArchivo=Utilidades.leerCadena(scanner,"Introduce la ruta del archivo de donde cargar las recetas: ");
         try {
             libroDeRecetas.cargarRecetasDeArchivo(nombreArchivo, maxIngredientes, maxIngredientes);
+            System.out.println("Recetas cargadas desde "+nombreArchivo);
         }catch (IOException e){
             System.out.println("Error al cargar el archivo");
-            e.printStackTrace();
         }
         // Solicita al usuario un nombre de archivo y carga las recetas desde ese archivo
     }
 
     private void guardarPlanSemanal(Scanner scanner) {
         // Solicita al usuario un nombre de archivo y guarda el plan semanal en ese archivo
+        scanner.nextLine();
+        String nombreArchivo=Utilidades.leerCadena(scanner,"Introduce el nombre del archivo donde guardar el plan semanal: ");
+        try {
+            planificador.guardarPlanEnArchivo(nombreArchivo);
+            System.out.println("Plan semanal guardado en "+nombreArchivo);
+        }catch(IOException e){
+            System.out.println("Error al guardar el archivo.");
+        }
     }
 }

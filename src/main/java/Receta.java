@@ -111,7 +111,7 @@ public class Receta {
 
     /**
      * Función que devuelve un string de toda la receta escrita para su lectura.
-     * @return-Devuelve el String de toda la receta escrita para su lectura.
+     * @return Devuelve el String de toda la receta escrita para su lectura.
      */
     @Override
     public String toString() {
