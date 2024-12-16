@@ -89,10 +89,7 @@ public class Receta {
      * @return -Devuleve el boolean 0 si no se ha llegado y un 1 si ya se ha llegado al limite.
      */
     public boolean instruccionesCompletas() {
-        if(numInstrucciones>=maxInstrucciones)
-            return true;
-        else
-            return false;
+        return numInstrucciones >= maxInstrucciones;
     }
 
     /**
@@ -118,12 +115,12 @@ public class Receta {
         String receta="";
        receta+="Receta: "+nombre+"\n";
         receta+="Ingredientes:\n";
-        for(int i=0;i<=numIngredientes;i++) {
+        for(int i=0;i<numIngredientes;i++) {
             if(Ingredientes[i]!=null){
             receta+="- "+Ingredientes[i]+"\n";}
         }
        receta+="Instrucciones:\n";
-        for(int i=0;i<=numInstrucciones;i++){
+        for(int i=0;i<numInstrucciones;i++){
             if(Instrucciones[i]!=null){
             receta+=(i+1)+". "+Instrucciones[i]+"\n";}
         }

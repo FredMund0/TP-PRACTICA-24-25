@@ -1,11 +1,15 @@
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
+/**
+ *
+ */
 public class InterfazUsuario {
     private LibroDeRecetas libroDeRecetas;
     private PlanificadorSemanal planificador;
-    private int maxIngredientes;
-    private int maxInstrucciones;
+    private final int maxIngredientes;
+    private final int maxInstrucciones;
 
     public InterfazUsuario(int maxIngredientes, int maxInstrucciones, int maxRecetasEnLibro) {
         // Inicialización de la herramienta de recetas
@@ -48,21 +52,27 @@ public class InterfazUsuario {
             opcion = Utilidades.leerNumero(scanner, "Elige una opción: ", 1, 7);
             switch (opcion) {
                 case 1:
+                    scanner.nextLine();
                     agregarReceta(scanner);
                     break;
                 case 2:
+                    scanner.nextLine();
                     consultarReceta(scanner);
                     break;
                 case 3:
+                    scanner.nextLine();
                     planificarComidas(scanner);
                     break;
                 case 4:
+                    scanner.nextLine();
                     guardarRecetas(scanner);
                     break;
                 case 5:
+                    scanner.nextLine();
                     cargarRecetas(scanner);
                     break;
                 case 6:
+                    scanner.nextLine();
                     guardarPlanSemanal(scanner);
                     break;
                 default:
@@ -73,18 +83,16 @@ public class InterfazUsuario {
 
     private void agregarReceta(Scanner scanner) {
         // Solicita al usuario los datos de la receta y la añade al libro de recetas
-        scanner.nextLine();
         Receta receta=new Receta(Utilidades.leerCadena(scanner,"Nombre de la receta: "),maxIngredientes,maxInstrucciones);
         System.out.println("Introduce los ingredientes (una línea por ingrediente, escribe 'fin' para terminar):");
         String ingredienteinstruccion;
-        //probar hacerlo sin break
         do{
             ingredienteinstruccion=Utilidades.leerCadena(scanner,"");
-        }while(!ingredienteinstruccion.equals("fin")&&receta.agregarIngrediente(ingredienteinstruccion));
+        }while(!ingredienteinstruccion.equalsIgnoreCase("fin")&&receta.agregarIngrediente(ingredienteinstruccion));
         System.out.println("Introduce las instrucciones (una línea por instrucción, escribe 'fin' para terminar): ");
         do{
             ingredienteinstruccion=Utilidades.leerCadena(scanner,"");
-        }while(!ingredienteinstruccion.equals("fin")||receta.agregarInstruccion(ingredienteinstruccion));
+        }while(!ingredienteinstruccion.equalsIgnoreCase("fin")&&receta.agregarInstruccion(ingredienteinstruccion));
         if(libroDeRecetas.agregarReceta(receta))
             System.out.println("¡Receta agregada exitosamente!");
     }
@@ -92,32 +100,35 @@ public class InterfazUsuario {
     private void consultarReceta(Scanner scanner) {
         // Busca una receta por su nombre y activa el menú de edición
        Receta receta= buscarRecetaPorNombre(scanner);
-       System.out.println(receta.toString());
-            editarReceta(scanner, receta);
+       if(receta!=null) {
+           System.out.println(receta.toString());
+           editarReceta(scanner, receta);
+       }
         }
 
 
     private Receta buscarRecetaPorNombre(Scanner scanner) {
         // Solicita al usuario un texto para buscar y seleccionar una receta por su nombre
-            if(scanner.hasNextLine())scanner.nextLine();
-            String cadena = Utilidades.leerCadena(scanner, "Introduce el texto de la receta a buscar (-FIN- para volver):");
-            if (cadena.toUpperCase() != "FIN") {
+            String cadena = Utilidades.leerCadena(scanner, "Introduce el texto de la receta a buscar (-FIN- para volver): ");
+            boolean recetasVacias=true;
+            if (!(cadena).equalsIgnoreCase("FIN")) {
                 Receta [] recetasEncontradas = libroDeRecetas.buscarRecetaPorNombre(cadena);
-                if (recetasEncontradas == null) {
-                    buscarRecetaPorNombre(scanner);
+                for (int i=0;i<recetasEncontradas.length;i++){
+                    if(recetasEncontradas[i]!=null){
+                        recetasVacias=false;
+                    }
                 }
-                else{
-                    Receta receta = seleccionarReceta(scanner, recetasEncontradas);
-                    return receta;
+                if(recetasVacias)buscarRecetaPorNombre(scanner);
+                else {
+                    return seleccionarReceta(scanner, recetasEncontradas);
                 }
             }
-        return null;
+            return null;
     }
 
     private void editarReceta(Scanner scanner, Receta seleccionada) {
         // Pantalla de edición de receta
         int opcion;
-        do{
             System.out.println("1. Añadir ingrediente");
             System.out.println("2. Añadir instrucción");
             System.out.println("3. Eliminar receta");
@@ -134,14 +145,14 @@ public class InterfazUsuario {
                 case 3:libroDeRecetas.eliminarReceta(seleccionada);
                 System.out.println("Receta eliminada.");
                 break;
-                default:break;
+                default:
             }
-        }while(opcion!=4);
     }
 
     private Receta seleccionarReceta(Scanner scanner, Receta[] recetas) {
         // Muestra las recetas encontradas y solicita al usuario que elija una
         int numRecetasEncontradas=0;
+        System.out.println("Recetas encontradas:");
         for (int i = 0; i < recetas.length; i++) {
             Receta receta = recetas[i];
             if(recetas[i]!=null){
@@ -149,8 +160,7 @@ public class InterfazUsuario {
             numRecetasEncontradas++;}
         }
         int recetaElegida = Utilidades.leerNumero(scanner, "Elige una receta: ", 1, numRecetasEncontradas);
-        Receta receta = recetas[(recetaElegida-1)];
-        return receta; // @todo MODIFICAR PARA DEVOLVER LA RECETA SELECCIONADA
+        return recetas[(recetaElegida-1)];
     }
 
     private void planificarComidas(Scanner scanner) {
@@ -166,7 +176,6 @@ public class InterfazUsuario {
 
     private void guardarRecetas(Scanner scanner) {
         // Solicita al usuario un nombre de archivo y guarda las recetas en ese archivo
-       scanner.nextLine();
        String nombreArchivo=Utilidades.leerCadena(scanner, "Introduce el nombre del archivo donde guardar las recetas: ");
        try {
            libroDeRecetas.guardarRecetasEnArchivo(nombreArchivo);
@@ -177,7 +186,6 @@ public class InterfazUsuario {
     }
 
     private void cargarRecetas(Scanner scanner) {
-        scanner.nextLine();
         String nombreArchivo=Utilidades.leerCadena(scanner,"Introduce la ruta del archivo de donde cargar las recetas: ");
         try {
             libroDeRecetas.cargarRecetasDeArchivo(nombreArchivo, maxIngredientes, maxIngredientes);
@@ -190,7 +198,6 @@ public class InterfazUsuario {
 
     private void guardarPlanSemanal(Scanner scanner) {
         // Solicita al usuario un nombre de archivo y guarda el plan semanal en ese archivo
-        scanner.nextLine();
         String nombreArchivo=Utilidades.leerCadena(scanner,"Introduce el nombre del archivo donde guardar el plan semanal: ");
         try {
             planificador.guardarPlanEnArchivo(nombreArchivo);

@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Objects;
 
 /**
  * La clase que se encarga de guardar recetas, buscar recetas por nombre, guardar toda la informaición de las recetas
@@ -97,21 +98,26 @@ public class LibroDeRecetas {
             String linea;
             do {
                 linea = lector.readLine();
-                if (linea==null){}
-                else{
+                if (linea!=null){
                     Receta receta = new Receta(linea, maxIngredientes, maxInstrucciones);
                     do{
                         linea = lector.readLine();
-                        if (!linea.equals("INSTRUCCIONES"))
-                            receta.agregarIngrediente(linea);
-                        else{linea=null;}
+                        if(linea!=null) {
+                            if (!linea.equals("INSTRUCCIONES"))
+                                receta.agregarIngrediente(linea);
+                            else {
+                                linea = null;
+                            }
+                        }
                     }while(linea!=null);
-                    for (int i = 0; i < maxInstrucciones; i++) {
+                    do{
                         linea = lector.readLine();
-                        if (!linea.equals("-----")) {
-                            receta.agregarInstruccion(linea);
-                        } else break;
-                    }
+                        if(linea!=null) {
+                            if (!linea.equals("-----")) {
+                                receta.agregarInstruccion(linea);
+                            }
+                        }
+                    }while(!Objects.equals(linea, "-----"));
                     agregarReceta(receta);
                 }
             }while(linea!=null);
@@ -127,8 +133,10 @@ public class LibroDeRecetas {
      * @return-Devuelve un valor boolean true, si ha alcanzado el limite de recetas y uno false si no lo ha hecho.
      */
     public boolean recetasCompletas() {
-        if(numRecetas>=recetas.length)
-        return true; // @todo MODIFICAR PARA DEVOLVER SI ESTÁ COMPLETO
+        if(numRecetas>=recetas.length) {
+            System.out.println("No se pudo añadir la receta.");
+            return true; // @todo MODIFICAR PARA DEVOLVER SI ESTÁ COMPLETO
+        }
         else return false;
     }
 
