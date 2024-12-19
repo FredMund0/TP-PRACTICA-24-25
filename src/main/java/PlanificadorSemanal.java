@@ -42,7 +42,7 @@ public class PlanificadorSemanal {
      */
     @Override
     public String toString() {
-        String plan = "";
+        StringBuilder plan = new StringBuilder();
         boolean hayReceta = false;
         for (int i = 0; i < 7; i++){
             if (planificador[i] != null){
@@ -52,35 +52,38 @@ public class PlanificadorSemanal {
         }
         if (hayReceta) {
 
-            plan += "---------------------------------------------------------------------------------------------------------------------------------------------------\n";
-            plan += " Lunes                Martes               Miércoles            Jueves               Viernes              Sábado               Domingo             \n";
-            plan += "---------------------------------------------------------------------------------------------------------------------------------------------------\n ";
+            plan.append("---------------------------------------------------------------------------------------------------------------------------------------------------\n");
+            plan.append(" Lunes                Martes               Miércoles            Jueves               Viernes              Sábado               Domingo             \n");
+            plan.append("---------------------------------------------------------------------------------------------------------------------------------------------------\n");
+            plan.append(" ");
             for (int i = 0; i < 7; i++) {
                 receta = planificador[i];
                 if (planificador[i] == null) {
-                    plan += "                     ";
+                    plan.append("                     ");
                 } else {
                     String nombreReceta = receta.getNombre();
                     int espacio = 21 - nombreReceta.length();
-
-                    plan += nombreReceta;
+                    plan.append(nombreReceta);
+                    if (i==6){
+                        espacio = espacio - 1;
+                    }
                     for (int j = 0; j < espacio ;j++){
-                        plan += " ";
+                        plan.append(" ");
                     }
                 }
             }
-            plan += "\n---------------------------------------------------------------------------------------------------------------------------------------------------\n" + "\n";
+            plan.append("\n---------------------------------------------------------------------------------------------------------------------------------------------------\n" + "\n");
         }else{
-            plan =
+            plan.append(
                     "-----------------------------------------------------------------------------\n" +
                     " Lunes      Martes     Miércoles  Jueves     Viernes    Sábado     Domingo   \n" +
                     "-----------------------------------------------------------------------------\n" +
                     "                                                                             \n" +
                     "-----------------------------------------------------------------------------\n" +
-                    "\n";
+                    "\n");
         }
             // Devuelve una representación en forma de cadena del planificador semanal
-            return plan;
+            return plan.toString();
 
     }
 
