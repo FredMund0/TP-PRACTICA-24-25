@@ -55,38 +55,14 @@ public class Utilidades {
      * @return Devuelve la posición en la semana del día que se ha intorducido anteriormente
      */
     public static int leerDiaDeLaSemana(Scanner teclado, String mensaje) {
-        int dias =-1;
+        int posicion;
         do{
         System.out.println(mensaje);
-        String letra = teclado.nextLine();
-        switch (letra) {
-            case "L":
-                dias = 0;
-                break;
-            case "M":
-                dias = 1;
-                break;
-            case "X":
-                dias = 2;
-                break;
-            case "J":
-                dias = 3;
-                break;
-            case "V":
-                dias = 4;
-                break;
-            case "S":
-                dias = 5;
-                break;
-            case "D":
-                dias = 6;
-                break;
-
-        }
-        }while (dias == -1);
+        posicion = diaSemanaAPosicion(teclado.nextLine());
+        }while (posicion == -1);
         // Muestra un mensaje, lee un día de la semana por teclado (L, M, X, J, V, S, D) y devuelve su posición
         // dentro de la semana (0-6)
-        return dias; // @todo MODIFICAR PARA DEVOLVER EL DÍA DE LA SEMANA LEÍDO
+        return posicion; // @todo MODIFICAR PARA DEVOLVER EL DÍA DE LA SEMANA LEÍDO
     }
 
 
