@@ -168,8 +168,7 @@ public class InterfazUsuario {
         // Inicia el proceso de planificación de comidas
         System.out.println("Planificación de comidas para la semana:");
         System.out.println(planificador.toString());
-        String dia=Utilidades.leerCadena(scanner,"Introduce el día de la semana (L, M, X, J, V, S, D): ");
-        int intdia=Utilidades.diaSemanaAPosicion(dia);
+        int intdia=Utilidades.leerDiaDeLaSemana(scanner,"Introduce el día de la semana (L, M, X, J, V, S, D): ");
         Receta receta=buscarRecetaPorNombre(scanner);
         planificador.agregarComida(intdia,receta);
         System.out.println("Receta planificada para "+Utilidades.posicionADiaSemana(intdia));

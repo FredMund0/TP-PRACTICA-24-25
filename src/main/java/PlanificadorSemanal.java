@@ -62,6 +62,7 @@ public class PlanificadorSemanal {
                 } else {
                     String nombreReceta = receta.getNombre();
                     int espacio = 21 - nombreReceta.length();
+
                     plan += nombreReceta;
                     for (int j = 0; j < espacio ;j++){
                         plan += " ";
