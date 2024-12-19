@@ -3,7 +3,7 @@ import java.sql.SQLOutput;
 import java.util.Scanner;
 
 /**
- *
+ *Clase la cual se encarga de
  */
 public class InterfazUsuario {
     private LibroDeRecetas libroDeRecetas;
@@ -11,6 +11,13 @@ public class InterfazUsuario {
     private final int maxIngredientes;
     private final int maxInstrucciones;
 
+    /**
+     * Función que incializa los parametros de la clase que recibe en la linea de comandos al ejecutarse el programa.
+     *Además inicializa el Libro de Recetas y el Planificador Semanal
+     * @param maxIngredientes Cantidad máxima de ingredientes que puede tener cada receta.(int)
+     * @param maxInstrucciones Cantidad máxima de istrucciones que puede tener cada receta.(int)
+     * @param maxRecetasEnLibro Cantidad máxima de recetas que puede guardar el Libro de Recetas.(int)
+     */
     public InterfazUsuario(int maxIngredientes, int maxInstrucciones, int maxRecetasEnLibro) {
         // Inicialización de la herramienta de recetas
         libroDeRecetas=new LibroDeRecetas(maxRecetasEnLibro);
@@ -24,7 +31,7 @@ public class InterfazUsuario {
         try {
             libroDeRecetas.cargarRecetasDeArchivo(archivoRecetas, maxIngredientes, maxInstrucciones);
         } catch (IOException e) {
-            System.out.println("Error al cargar las recetas predefinidas");
+            System.out.println("Error al cargar las recetas");
         }
         iniciar();
         // Cargar las recetas predefinidas al iniciar la aplicación
@@ -48,31 +55,25 @@ public class InterfazUsuario {
             System.out.println("5. Cargar Recetas");
             System.out.println("6. Guardar Plan Semanal");
             System.out.println("7. Salir\n");
-
             opcion = Utilidades.leerNumero(scanner, "Elige una opción: ", 1, 7);
+            scanner.nextLine();
             switch (opcion) {
                 case 1:
-                    scanner.nextLine();
                     agregarReceta(scanner);
                     break;
                 case 2:
-                    scanner.nextLine();
                     consultarReceta(scanner);
                     break;
                 case 3:
-                    scanner.nextLine();
                     planificarComidas(scanner);
                     break;
                 case 4:
-                    scanner.nextLine();
                     guardarRecetas(scanner);
                     break;
                 case 5:
-                    scanner.nextLine();
                     cargarRecetas(scanner);
                     break;
                 case 6:
-                    scanner.nextLine();
                     guardarPlanSemanal(scanner);
                     break;
                 default:
@@ -195,7 +196,6 @@ public class InterfazUsuario {
         }
         // Solicita al usuario un nombre de archivo y carga las recetas desde ese archivo
     }
-
     private void guardarPlanSemanal(Scanner scanner) {
         // Solicita al usuario un nombre de archivo y guarda el plan semanal en ese archivo
         String nombreArchivo=Utilidades.leerCadena(scanner,"Introduce el nombre del archivo donde guardar el plan semanal: ");

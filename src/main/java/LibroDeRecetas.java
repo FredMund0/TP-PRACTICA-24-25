@@ -9,6 +9,13 @@ import java.util.Objects;
 public class LibroDeRecetas {
     private Receta recetas[];
     private int numRecetas=0;
+
+
+    /**
+     * @param maxRecetasEnLibro Cantidad máxima de recetas que puede guardar el Libro de Rectas que se inicializa desde
+     *                          la consola.
+     *
+     */
     public LibroDeRecetas(int maxRecetasEnLibro) {
         // Inicialización del libro de recetas
        recetas= new Receta[maxRecetasEnLibro];
@@ -32,7 +39,7 @@ public class LibroDeRecetas {
             return true;
         }
         else{
-            System.out.println("No se pueden añadir más instrucciones.");
+            System.out.println("No se pudo añadir la receta.");
             return false;}
     }
 
@@ -133,11 +140,7 @@ public class LibroDeRecetas {
      * @return-Devuelve un valor boolean true, si ha alcanzado el limite de recetas y uno false si no lo ha hecho.
      */
     public boolean recetasCompletas() {
-        if(numRecetas>=recetas.length) {
-            System.out.println("No se pudo añadir la receta.");
-            return true; // @todo MODIFICAR PARA DEVOLVER SI ESTÁ COMPLETO
-        }
-        else return false;
+        return (numRecetas>=recetas.length);
     }
 
     /**
