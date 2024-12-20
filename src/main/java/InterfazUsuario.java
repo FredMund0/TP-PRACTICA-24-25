@@ -26,7 +26,6 @@ public class InterfazUsuario {
         libroDeRecetas=new LibroDeRecetas(maxRecetasEnLibro);
         this.maxIngredientes=maxIngredientes;
         this.maxInstrucciones=maxInstrucciones;
-        iniciar();
     }
 
     /**
@@ -47,7 +46,6 @@ public class InterfazUsuario {
         } catch (IOException e) {
             System.out.println("Error al cargar las recetas");
         }
-        iniciar();
     }
 
     /**

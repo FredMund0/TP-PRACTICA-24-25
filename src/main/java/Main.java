@@ -26,11 +26,13 @@ public class Main {
 
                 if (args.length == 3){
                     InterfazUsuario interfazUsuario = new InterfazUsuario(maxIngredientesPorReceta,maxInstruccionesPorReceta,maxRecetasEnLibro);
+                    interfazUsuario.iniciar();
                 }
 
                 if (args.length == 4){
                     nombreArchivoRecetas = args[3];
                     InterfazUsuario interfazUsuario = new InterfazUsuario(maxIngredientesPorReceta,maxInstruccionesPorReceta,maxRecetasEnLibro,nombreArchivoRecetas);
+                    interfazUsuario.iniciar();
                 }
             }catch (NumberFormatException e){
                 System.out.println("Los tres primeros parámetros tienen que se números.");

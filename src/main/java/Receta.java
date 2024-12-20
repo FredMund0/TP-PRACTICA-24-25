@@ -43,17 +43,21 @@ public class Receta {
     /**
      * Funcion que añade un Ingrediente a la receta y un boolean 0/1 que depende si se ha llegado al limite de ingredientes.
      * @param ingrediente String del nombre del ingrediente que se quiere añadir a la receta.
-     * @return Devuelve un valor boolean que depende si se ha llegado al limite de ingredientes y no se ha podido crear uno nuevo.(true=exito, false=limite pasado)
+     * @return Devuelve un valor boolean que depende si se ha llegado al limite de ingredientes y no se ha podido crear
+     * uno nuevo.(true=exito, false=limite pasado)
      */
     public boolean agregarIngrediente(String ingrediente) {
+        boolean agregado;
         if(ingredientesCompletos()){
             System.out.println("No se pueden añadir más ingredientes.");
+            agregado=false;
             }
         else {
             Ingredientes[numIngredientes] = ingrediente;
             numIngredientes++;
+            agregado=true;
         }
-        return (!ingredientesCompletos());
+        return (agregado);
     }
 
     /**
@@ -62,14 +66,17 @@ public class Receta {
      * @return Devuelve un boolean que es igual a true si se añade la instrucción correctamente y false si se ha llegado al limite de instrucciones.
      */
     public boolean agregarInstruccion(String instruccion) {
+        boolean agregado;
         if(instruccionesCompletas()){
             System.out.println("No se pueden añadir más instrucciones.");
+            agregado=false;
            }
         else {
             Instrucciones[numInstrucciones] = instruccion;
             numInstrucciones++;
+            agregado=true;
         }
-        return (!instruccionesCompletas());
+        return (agregado);
     }
 
     /**
