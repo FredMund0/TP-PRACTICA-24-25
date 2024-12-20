@@ -26,6 +26,7 @@ public class InterfazUsuario {
         libroDeRecetas=new LibroDeRecetas(maxRecetasEnLibro);
         this.maxIngredientes=maxIngredientes;
         this.maxInstrucciones=maxInstrucciones;
+        iniciar();
     }
 
     /**

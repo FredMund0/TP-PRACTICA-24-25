@@ -64,12 +64,12 @@ public class Receta {
     public boolean agregarInstruccion(String instruccion) {
         if(instruccionesCompletas()){
             System.out.println("No se pueden añadir más instrucciones.");
-            return false;}
+           }
         else {
             Instrucciones[numInstrucciones] = instruccion;
             numInstrucciones++;
-            return true;
         }
+        return (!instruccionesCompletas());
     }
 
     /**
