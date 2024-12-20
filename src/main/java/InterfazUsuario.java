@@ -132,6 +132,9 @@ public class InterfazUsuario {
            System.out.println(receta.toString());
            editarReceta(scanner, receta);
        }
+       else{
+           System.out.println("ajá");
+       }
     }
 
 
@@ -145,18 +148,18 @@ public class InterfazUsuario {
      */
     private Receta buscarRecetaPorNombre(Scanner scanner) {
         Receta receta=null;
+        boolean recetasVacias=true;
             String cadena = Utilidades.leerCadena(scanner, "Introduce el texto de la receta a buscar (-FIN- para volver): ");
-            boolean recetasVacias=true;
             if (!(cadena).equalsIgnoreCase("FIN")) {
-                Receta [] recetasEncontradas = libroDeRecetas.buscarRecetaPorNombre(cadena);
+                Receta []recetasEncontradas = libroDeRecetas.buscarRecetaPorNombre(cadena);
                 for (int i=0;i<recetasEncontradas.length;i++){
                     if(recetasEncontradas[i]!=null){
                         recetasVacias=false;
                     }
                 }
-                if(recetasVacias)buscarRecetaPorNombre(scanner);
-                else {
-                    receta= seleccionarReceta(scanner, recetasEncontradas);
+                if(recetasVacias)receta=buscarRecetaPorNombre(scanner);
+                else{
+                    receta = seleccionarReceta(scanner, recetasEncontradas);
                 }
             }
             return receta;
@@ -206,6 +209,7 @@ public class InterfazUsuario {
             numRecetasEncontradas++;}
         }
         int recetaElegida = Utilidades.leerNumero(scanner, "Elige una receta: ", 1, numRecetasEncontradas);
+        System.out.println(recetas[(recetaElegida-1)].getNombre());
         return recetas[(recetaElegida-1)];
     }
 
