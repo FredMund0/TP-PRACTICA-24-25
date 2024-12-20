@@ -137,12 +137,12 @@ public class Receta {
     public String toRawString() {
         String rawReceta="";
         rawReceta+=nombre+"\n";
-        for(int i=0;i<=numIngredientes;i++) {
+        for(int i=0;i<numIngredientes;i++) {
             if(Ingredientes[i]!=null){
             rawReceta+=Ingredientes[i]+"\n";}
         }
        rawReceta+="INSTRUCCIONES\n";
-        for(int i=0;i<=numInstrucciones;i++){
+        for(int i=0;i<numInstrucciones;i++){
             if(Instrucciones[i]!=null){
             rawReceta+=Instrucciones[i]+"\n";}
         }
