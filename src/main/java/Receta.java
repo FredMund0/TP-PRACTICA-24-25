@@ -161,7 +161,6 @@ public class Receta {
      * @return Devuelve el limite de instrucciones de la receta
      */
     public int getMaxInstrucciones() {
-        return maxInstrucciones;
-    }
+        return maxInstrucciones;}
 }
 
