@@ -49,12 +49,12 @@ public class Receta {
     public boolean agregarIngrediente(String ingrediente) {
         if(ingredientesCompletos()){
             System.out.println("No se pueden añadir más ingredientes.");
-            return false;}
+            }
         else {
             Ingredientes[numIngredientes] = ingrediente;
             numIngredientes++;
-            return true;
         }
+        return (!ingredientesCompletos());
     }
 
     /**
@@ -78,10 +78,7 @@ public class Receta {
      * @return-Devuelve un boolean 0 si no se ha llegado y un 1 si ya se ha llegado al limite.
      */
     public boolean ingredientesCompletos() {
-        if (numIngredientes>=maxIngredientes)
-        return true; // @todo MODIFICAR PARA DEVOLVER SI ESTÁN COMPLETOS LOS INGREDIENTES
-        else
-            return false;
+       return (numIngredientes>=maxIngredientes);
     }
 
     /**
