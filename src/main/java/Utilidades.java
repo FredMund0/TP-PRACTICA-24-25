@@ -17,7 +17,6 @@ public class Utilidades {
     public static String leerCadena(Scanner teclado, String s) {
         System.out.print(s);
         String cadena = teclado.nextLine();
-        // Muestra un mensaje y lee una cadena por teclado
         return cadena;
     }
 
@@ -44,7 +43,6 @@ public class Utilidades {
                     teclado.nextLine();
                 }
             } while (num < minimo || num > maximo);
-        // Muestra un mensaje y lee un número por teclado si no es un número vuelve a solicitar uno
         return num;
     }
 
@@ -61,9 +59,7 @@ public class Utilidades {
         System.out.println(mensaje);
         posicion = diaSemanaAPosicion(teclado.nextLine());
         }while (posicion == -1);
-        // Muestra un mensaje, lee un día de la semana por teclado (L, M, X, J, V, S, D) y devuelve su posición
-        // dentro de la semana (0-6)
-        return posicion; // @todo MODIFICAR PARA DEVOLVER EL DÍA DE LA SEMANA LEÍDO
+        return posicion;
     }
 
 
@@ -100,8 +96,7 @@ public class Utilidades {
                     System.out.println("No coincide con ningún día de la semana.");
                     break;
             }
-        // Devuelve la posición de un día de la semana (L, M, X, J, V, S, D) dentro de la semana (0-6)
-        return posicion; // @todo MODIFICAR PARA DEVOLVER LA POSICIÓN DEL DÍA DE LA SEMANA
+        return posicion;
     }
 
     /**
@@ -137,9 +132,6 @@ public class Utilidades {
                     dia = "Desconocido";
                     break;
             }
-
-        // Devuelve el día de la semana (Lunes, Martes, Miércoles, Jueves, Viernes, Sábado, Domingo)
-        // correspondiente a una posición dentro de la semana (0-6)
-        return dia; // @todo MODIFICAR PARA DEVOLVER EL DÍA DE LA SEMANA
+        return dia;
     }
 }

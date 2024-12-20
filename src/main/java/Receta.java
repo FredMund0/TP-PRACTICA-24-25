@@ -12,7 +12,6 @@ public class Receta {
     private int numIngredientes=0;//A lo mejor no hace falta crear esta variable
     private int numInstrucciones=0;
     public Receta(String nombre, int maxIngredientes, int maxInstrucciones) {
-        // Inicialización de la receta
         this.nombre= nombre;
         this.maxIngredientes=maxIngredientes;
         this.maxInstrucciones=maxInstrucciones;
@@ -21,14 +20,14 @@ public class Receta {
     }
 
     /**
-     * @return -Devuelve el nombre de la receta
+     * @return Devuelve el nombre de la receta
      */
     public String getNombre() {
         return nombre;
     }
 
     /**
-     * @return -Devuelve el array String de los Ingredientes
+     * @return Devuelve el array String de los Ingredientes
      */
     public String[] getIngredientes() {
         return Ingredientes;
@@ -43,8 +42,8 @@ public class Receta {
 
     /**
      * Funcion que añade un Ingrediente a la receta y un boolean 0/1 que depende si se ha llegado al limite de ingredientes.
-     * @param ingrediente - String del nombre del ingrediente que se quiere añadir a la receta.
-     * @return -Devuelve un valor boolean que depende si se ha llegado al limite de ingredientes y no se ha podido crear uno nuevo.(true=exito, false=limite pasado)
+     * @param ingrediente String del nombre del ingrediente que se quiere añadir a la receta.
+     * @return Devuelve un valor boolean que depende si se ha llegado al limite de ingredientes y no se ha podido crear uno nuevo.(true=exito, false=limite pasado)
      */
     public boolean agregarIngrediente(String ingrediente) {
         if(ingredientesCompletos()){
@@ -59,8 +58,8 @@ public class Receta {
 
     /**
      * Función que añade una Instruccion al array Instrucciones[] y devuelve un boolean que depende si se ha llegado al limite de instrucciones.
-     * @param instruccion -String de la linea que contiene la instrucción.
-     * @return -Devuelve un boolean que es igual a true si se añade la instrucción correctamente y false si se ha llegado al limite de instrucciones.
+     * @param instruccion String de la linea que contiene la instrucción.
+     * @return Devuelve un boolean que es igual a true si se añade la instrucción correctamente y false si se ha llegado al limite de instrucciones.
      */
     public boolean agregarInstruccion(String instruccion) {
         if(instruccionesCompletas()){
@@ -69,13 +68,13 @@ public class Receta {
         else {
             Instrucciones[numInstrucciones] = instruccion;
             numInstrucciones++;
-            return true; // @todo MODIFICAR PARA DEVOLVER SI SE HA AÑADIDO LA INSTRUCCIÓN
+            return true;
         }
     }
 
     /**
      * Función que comprueba si se ha llegado al limite de ingredientes y devuelve un boolean
-     * @return-Devuelve un boolean 0 si no se ha llegado y un 1 si ya se ha llegado al limite.
+     * @return Devuelve un boolean 0 si no se ha llegado y un 1 si ya se ha llegado al limite.
      */
     public boolean ingredientesCompletos() {
        return (numIngredientes>=maxIngredientes);
@@ -83,21 +82,21 @@ public class Receta {
 
     /**
      * Función que comprueba si se ha llegado al limite de instrucciones y devuelve un boolean
-     * @return -Devuleve el boolean 0 si no se ha llegado y un 1 si ya se ha llegado al limite.
+     * @return Devuleve el boolean 0 si no se ha llegado y un 1 si ya se ha llegado al limite.
      */
     public boolean instruccionesCompletas() {
         return numInstrucciones >= maxInstrucciones;
     }
 
     /**
-     * @return -Devuelve el numero(int) de ingredientes
+     * @return Devuelve el numero(int) de ingredientes
      */
     public int numIngredientes() {
         return numIngredientes;
     }
 
     /**
-     * @return -Devuelve el numero(int) de instrucciones.
+     * @return Devuelve el numero(int) de instrucciones.
      */
     public int numInstrucciones() {
        return numInstrucciones;
@@ -126,7 +125,7 @@ public class Receta {
 
     /**
      * Función que devuelve un String con la receta escrita de forma simplificada para poder guardar y cargar archivos.
-     * @return -Devuelve un String con la receta escrita de forma simplificada para poder guardar y cargar archivos.
+     * @return Devuelve un String con la receta escrita de forma simplificada para poder guardar y cargar archivos.
      */
     public String toRawString() {
         String rawReceta="";
@@ -145,14 +144,14 @@ public class Receta {
     }
 
     /**
-     * @return -Devuelve el limite de ingredientes de la receta
+     * @return Devuelve el limite de ingredientes de la receta
      */
     public int getMaxIngredientes() {
        return maxIngredientes;
     }
 
     /**
-     * @return -Devuelve el limite de instrucciones de la receta
+     * @return Devuelve el limite de instrucciones de la receta
      */
     public int getMaxInstrucciones() {
         return maxInstrucciones;

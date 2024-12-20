@@ -33,7 +33,6 @@ public class PlanificadorSemanal {
             throw new IllegalArgumentException("No entra dentro de los parámetros de la semana. Debe estar entre el 0 (Lunes) y el 6 (Martes)");
         }
             planificador[dia] = receta;
-        // Añade una receta a un día de la semana en el planificador semanal
     }
 
     /**
@@ -82,7 +81,6 @@ public class PlanificadorSemanal {
                     "-----------------------------------------------------------------------------\n" +
                     "\n");
         }
-            // Devuelve una representación en forma de cadena del planificador semanal
             return plan.toString();
 
     }
@@ -106,6 +104,5 @@ public class PlanificadorSemanal {
             writer.write(diasSemana[i] + ": " + recetaNombre + "\n");
         }
         }
-        // Guarda el planificador semanal en un archivo de texto
     }
 }

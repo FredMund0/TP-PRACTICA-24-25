@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 /**
@@ -48,7 +47,6 @@ public class InterfazUsuario {
             System.out.println("Error al cargar las recetas");
         }
         iniciar();
-        // Cargar las recetas predefinidas al iniciar la aplicación
     }
 
     /**
@@ -130,7 +128,6 @@ public class InterfazUsuario {
      * @param scanner Scanner necesario para ejecutar las funciones.
      */
     private void consultarReceta(Scanner scanner) {
-        // Busca una receta por su nombre y activa el menú de edición
        Receta receta= buscarRecetaPorNombre(scanner);
        if(receta!=null) {
            System.out.println(receta.toString());
@@ -173,7 +170,6 @@ public class InterfazUsuario {
      * @param seleccionada Receta que fue elegida por el usuario para ser editada.
      */
     private void editarReceta(Scanner scanner, Receta seleccionada) {
-        // Pantalla de edición de receta
         int opcion;
             System.out.println("1. Añadir ingrediente");
             System.out.println("2. Añadir instrucción");
@@ -203,7 +199,6 @@ public class InterfazUsuario {
      * @return Devuelve la receta elegida por el usuario.
      */
     private Receta seleccionarReceta(Scanner scanner, Receta[] recetas) {
-        // Muestra las recetas encontradas y solicita al usuario que elija una
         int numRecetasEncontradas=0;
         System.out.println("Recetas encontradas:");
         for (int i = 0; i < recetas.length; i++) {
@@ -222,7 +217,6 @@ public class InterfazUsuario {
      * @param scanner Scanner necesario para ejecutar las funciones.
      */
     private void planificarComidas(Scanner scanner) {
-        // Inicia el proceso de planificación de comidas
         System.out.println("Planificación de comidas para la semana:");
         System.out.println(planificador.toString());
         int intdia=Utilidades.leerDiaDeLaSemana(scanner,"Introduce el día de la semana (L, M, X, J, V, S, D): ");
@@ -236,7 +230,6 @@ public class InterfazUsuario {
      * @param scanner Scanner necesario para ejecutar las funciones.
      */
     private void guardarRecetas(Scanner scanner) {
-        // Solicita al usuario un nombre de archivo y guarda las recetas en ese archivo
        String nombreArchivo=Utilidades.leerCadena(scanner, "Introduce el nombre del archivo donde guardar las recetas: ");
        try {
            libroDeRecetas.guardarRecetasEnArchivo(nombreArchivo);
@@ -259,7 +252,6 @@ public class InterfazUsuario {
         }catch (IOException e){
             System.out.println("Error al cargar el archivo");
         }
-        // Solicita al usuario un nombre de archivo y carga las recetas desde ese archivo
     }
 
     /**
@@ -268,7 +260,6 @@ public class InterfazUsuario {
      * @param scanner Scanner necesario para ejecutar las funciones.
      */
     private void guardarPlanSemanal(Scanner scanner) {
-        // Solicita al usuario un nombre de archivo y guarda el plan semanal en ese archivo
         String nombreArchivo=Utilidades.leerCadena(scanner,"Introduce el nombre del archivo donde guardar el plan semanal: ");
         try {
             planificador.guardarPlanEnArchivo(nombreArchivo);
