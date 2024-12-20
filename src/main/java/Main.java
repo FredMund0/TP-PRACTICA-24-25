@@ -11,7 +11,7 @@ public class Main {
         int maxInstruccionesPorReceta;
         int maxRecetasEnLibro;
 
-        String nombreArchivoRecetas = null;
+        String nombreArchivoRecetas;
 
         if (args.length < 3 || args.length > 4) {
             System.out.println("Se deben usar los parámetros: maxIngredientesPorReceta, maxInstruccionesPorReceta, maxRecetasEnLibro y opcionalmente nombreArchivoRecetas. ");
