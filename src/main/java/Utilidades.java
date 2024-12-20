@@ -49,7 +49,8 @@ public class Utilidades {
     }
 
     /**
-     * Función que pideun día de la semana mediante un mensaje y pasa de el día de la semana introducido a su posición en la semana, es decir, L->0, M->1 y así con todos
+     * Función que pide un día de la semana mediante un mensaje y obtiene la posición en la semana correspondiente al día introducido, es decir, L->0, M->1 y así con todos,
+     * o repite el mensaje hasta que se introduzca un día válido de la semana. Todo con ayuda de la función diaSemanaPosicion
      * @param teclado Declaración del Scanner teclado para poder escribir mediante teclado un número
      * @param mensaje Variable de clase string que sirve como mensaje introductorio para pedir un día de la semana por su letra representativa
      * @return Devuelve la posición en la semana del día que se ha intorducido anteriormente
