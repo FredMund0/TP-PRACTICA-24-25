@@ -30,7 +30,6 @@ public class Main {
 
                 if (args.length == 4){
                     nombreArchivoRecetas = args[3];
-                    System.out.println("Se han cargado las recetas de " + nombreArchivoRecetas);
                     InterfazUsuario interfazUsuario = new InterfazUsuario(maxIngredientesPorReceta,maxInstruccionesPorReceta,maxRecetasEnLibro,nombreArchivoRecetas);
                 }
             }catch (NumberFormatException e){

@@ -233,7 +233,6 @@ public class InterfazUsuario {
        String nombreArchivo=Utilidades.leerCadena(scanner, "Introduce el nombre del archivo donde guardar las recetas: ");
        try {
            libroDeRecetas.guardarRecetasEnArchivo(nombreArchivo);
-           System.out.println("Recetas guardadas en "+nombreArchivo);
        }catch (IOException e) {
            System.out.println("Error al guardar el archivo.");
        }
@@ -248,7 +247,6 @@ public class InterfazUsuario {
         String nombreArchivo=Utilidades.leerCadena(scanner,"Introduce la ruta del archivo de donde cargar las recetas: ");
         try {
             libroDeRecetas.cargarRecetasDeArchivo(nombreArchivo, maxIngredientes, maxIngredientes);
-            System.out.println("Recetas cargadas desde "+nombreArchivo);
         }catch (IOException e){
             System.out.println("Error al cargar el archivo");
         }

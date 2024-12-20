@@ -80,7 +80,7 @@ public class LibroDeRecetas {
                     escritor.print(receta.toRawString());}
             }
             escritor.close();
-            System.out.println("Archivo guardado exitosamente");
+            System.out.println("Recetas guardadas en "+nombreArchivo);
         }catch(IOException e){
             System.out.println("Ocurrió un error al escribir en el archivo."+ e.getMessage());
         }
@@ -125,6 +125,7 @@ public class LibroDeRecetas {
                     agregarReceta(receta);
                 }
             }while(linea!=null);
+            System.out.println("Recetas cargadas desde "+nombreArchivo);
         } catch (FileNotFoundException ex) {
             System.out.println("No se ha encontrado el archivo llamado: " + nombreArchivo);
         }catch (IOException ex) {
