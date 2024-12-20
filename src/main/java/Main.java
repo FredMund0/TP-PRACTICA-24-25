@@ -20,6 +20,9 @@ public class Main {
                 maxIngredientesPorReceta = Integer.parseInt(args[0]);
                 maxInstruccionesPorReceta = Integer.parseInt(args[1]);
                 maxRecetasEnLibro = Integer.parseInt(args[2]);
+                System.out.println("Máximo de ingredientes por receta: " + maxIngredientesPorReceta);
+                System.out.println("Máximo de instrucciones por receta: " + maxInstruccionesPorReceta);
+                System.out.println("Máximo de recetas del libro de recetas: " + maxRecetasEnLibro);
 
                 if (args.length == 3){
                     InterfazUsuario interfazUsuario = new InterfazUsuario(maxIngredientesPorReceta,maxInstruccionesPorReceta,maxRecetasEnLibro);
