@@ -189,7 +189,6 @@ public class InterfazUsuario {
                 default:
             }
     }
-
     /**
      * Función que recibe un array con las recetas cuyos nombres coinciden con la entrada del usuario, la cual imprime
      * el nombre de todas esas recetas para que el usuario pueda elegir cual de ellas quiere editar.
