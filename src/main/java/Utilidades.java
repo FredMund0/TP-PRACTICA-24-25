@@ -70,7 +70,7 @@ public class Utilidades {
      */
     public static int diaSemanaAPosicion(String dia) {
         int posicion = -1;
-            switch (dia) {
+            switch (dia.toUpperCase()) {
                 case "L":
                     posicion = 0;
                     break;
