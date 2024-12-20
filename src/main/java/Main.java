@@ -36,9 +36,9 @@ public class Main {
                 }
             }catch (NumberFormatException e){
                 System.out.println("Los tres primeros parámetros tienen que se números.");
-            }//catch (Exception e){
-              //  System.out.println("ERROR DESCONOCIDO");
-            //}
+            }catch (Exception e){
+                System.out.println("ERROR DESCONOCIDO");
+            }
         }
     }
 }
