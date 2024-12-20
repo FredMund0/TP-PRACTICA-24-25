@@ -1,8 +1,15 @@
 public class Main {
+    /**
+     * Función que inicializa todos los atributos necesarios para poder iniciar la clase interfazUsuario y saber diferenciar si
+     * en los parámetros está el nombre de un archivo para cargar las recetas del archivo o si estamos creando un nuevo plan sin archivos anteriores.
+     * @param args Es el array que contiene los parámetros con los que se va a ejecutar la función, de manera que se utilizan para poder
+     *             inicializar los atributos del interfaz de usuario. Siendo en orden de los parámetros maxIngredientesPorReceta, maxInstruccionesPorReceta,
+     *             maxRecetasEnLibro y opcionalmente nombreArchivoRecetas.
+     */
     public static void main(String[] args) {
-        int maxIngredientesPorReceta = 0;
-        int maxInstruccionesPorReceta = 0;
-        int maxRecetasEnLibro = 0;
+        int maxIngredientesPorReceta;
+        int maxInstruccionesPorReceta;
+        int maxRecetasEnLibro;
 
         String nombreArchivoRecetas = null;
 
@@ -14,8 +21,14 @@ public class Main {
                 maxInstruccionesPorReceta = Integer.parseInt(args[1]);
                 maxRecetasEnLibro = Integer.parseInt(args[2]);
 
+                if (args.length == 3){
+                    InterfazUsuario interfazUsuario = new InterfazUsuario(maxIngredientesPorReceta,maxInstruccionesPorReceta,maxRecetasEnLibro);
+                }
+
                 if (args.length == 4){
                     nombreArchivoRecetas = args[3];
+                    System.out.println("Se han cargado las recetas de " + nombreArchivoRecetas);
+                    InterfazUsuario interfazUsuario = new InterfazUsuario(maxIngredientesPorReceta,maxInstruccionesPorReceta,maxRecetasEnLibro,nombreArchivoRecetas);
                 }
             }catch (NumberFormatException e){
                 System.out.println("Los tres primeros parámetros tienen que se números.");
@@ -23,10 +36,6 @@ public class Main {
                 System.out.println("ERROR DESCONOCIDO");
             }
         }
-        InterfazUsuario interfazUsuario = new InterfazUsuario(maxIngredientesPorReceta,maxInstruccionesPorReceta,maxRecetasEnLibro,nombreArchivoRecetas);
-        // Comprueba los argumentos de la línea de comandos y lanza la interfaz de usuario
-        //prueba
-
     }
 }
 
